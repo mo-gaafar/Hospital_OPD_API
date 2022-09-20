@@ -27,7 +27,7 @@ class Doctor(models.Model):
         choices=[('M', 'Male'), ('F', 'Female')]
     )
     birthdate = models.DateField()
-    department = models.ForeignKey(Department)
+    department = models.ForeignKey(Department, on_delete = models.CASCADE)
 
     def __str__(self):
         return self.name
