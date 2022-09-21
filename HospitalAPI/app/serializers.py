@@ -32,7 +32,8 @@ class DoctorSerializer(serializers.ModelSerializer):
         return datetime.now().year - instance.birthdate.year
 
 
-class PatientSerializer(serializers.ModelSerializer):
+
+class PatientSerializerRead(serializers.ModelSerializer):
     medicines = serializers.StringRelatedField(many=True, read_only=True)
     seeing_doctors = serializers.StringRelatedField(many=True, read_only=True)
     age = serializers.SerializerMethodField(method_name='get_age')
@@ -44,3 +45,12 @@ class PatientSerializer(serializers.ModelSerializer):
         model = Patient
         fields = ['id', 'name', 'gender', 'age',
                   'medicines', 'seeing_doctors', 'room']
+
+class PatientSerializerWrite(serializers.ModelSerializer):
+    # birthdate = serializers.DateField(format="%Y-%m-%d")
+    # birthdate = serializers.DateField(input_formats=['%Y-%m-%d'])
+    # medicines = serializers.StringRelatedField(many=True)
+    # seeing_doctors = serializers.StringRelatedField(many=True)
+    class Meta:
+        model = Patient
+        fields = '__all__'

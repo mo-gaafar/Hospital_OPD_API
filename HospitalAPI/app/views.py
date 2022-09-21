@@ -1,8 +1,9 @@
+from urllib import request
 from .models import Doctor, Patient, Department, Medicine, Room
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .serializers import DoctorSerializer, PatientSerializer, DepartmentSerializer, MedicineSerializer, RoomSerializer
+from .serializers import DoctorSerializer, PatientSerializerRead, PatientSerializerWrite, DepartmentSerializer, MedicineSerializer, RoomSerializer
 
 # Create your views here.
 
@@ -25,12 +26,24 @@ class DoctorDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class PatientsList(generics.ListCreateAPIView):
     queryset = Patient.objects.all()
-    serializer_class = PatientSerializer
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return PatientSerializerRead
+        else:
+            return PatientSerializerWrite
 
 
 class PatientDetail(generics.RetrieveUpdateDestroyAPIView):
+
     queryset = Patient.objects.all()
-    serializer_class = PatientSerializer
+    # serializer_class = PatientSerializer
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return PatientSerializerRead
+        else:
+            return PatientSerializerWrite
 
 
 class DepartmentsList(generics.ListCreateAPIView):
