@@ -5,7 +5,7 @@ from django.db import models
 
 
 class Department(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(unique=True, primary_key=True, max_length=100)
 
     def __str__(self):
         return self.name
@@ -52,7 +52,7 @@ class Patient(models.Model):
     birthdate = models.DateField()
     medicines = models.ManyToManyField(Medicine)
     seeing_doctors = models.ManyToManyField(Doctor)
-    room = models.OneToOneField(Room, on_delete=models.CASCADE)
+    room = models.OneToOneField(Room, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.name

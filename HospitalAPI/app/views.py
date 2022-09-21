@@ -1,47 +1,57 @@
-from app.models import Doctor, Patient, Department, Medicine, Room
+from .models import Doctor, Patient, Department, Medicine, Room
+from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from .serializers import DoctorSerializer, PatientSerializer, DepartmentSerializer, MedicineSerializer, RoomSerializer
 
-# django views imports
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_http_methods
-from django.core.exceptions import ObjectDoesNotExist
+# Create your views here.
 
 
-@api_view(['GET'])
-def getData(request):
-    return Response({'message': 'Hello, World!'})
+class DoctorsList(generics.ListCreateAPIView):
+    queryset = Doctor.objects.all()
+    serializer_class = DoctorSerializer
 
 
-# # Create your views here.
-# @csrf_exempt
-# @require_http_methods(["GET", "POST"])
-# def doctor(request):
-#     if request.method == "GET":
-#         try:
-#             doctor = Doctor.objects.get(id=request.GET.get("id"))
-#             return JsonResponse(doctor.to_json(), safe=False)
-#         except ObjectDoesNotExist:
-#             return JsonResponse({"error": "Doctor does not exist"}, safe=False)
-#     elif request.method == "POST":
-#         doctor = Doctor()
-#         doctor.name = request.POST.get("name")
-#         doctor.save()
-#         return JsonResponse(doctor.to_json(), safe=False)
+class DoctorDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Doctor.objects.all()
+    serializer_class = DoctorSerializer
 
-# @csrf_exempt
-# @require_http_methods(["GET", "POST"])
-# def patient(request):
-#     if request.method == "GET":
-#         try:
-#             patient = Patient.objects.get(id=request.GET.get("id"))
-#             return JsonResponse(patient.to_json(), safe=False)
-#         except ObjectDoesNotExist:
-#             return JsonResponse({"error": "Patient does not exist"}, safe=False)
-#     elif request.method == "POST":
-#         patient = Patient()
-#         patient.name = request.POST.get("name")
-#         patient.save()
-#         return JsonResponse(patient.to_json(), safe=False)
+
+class PatientsList(generics.ListCreateAPIView):
+    queryset = Patient.objects.all()
+    serializer_class = PatientSerializer
+
+
+class PatientDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Patient.objects.all()
+    serializer_class = PatientSerializer
+
+
+class DepartmentsList(generics.ListCreateAPIView):
+    queryset = Department.objects.all()
+    serializer_class = DepartmentSerializer
+
+
+class DepartmentDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Department.objects.all()
+    serializer_class = DepartmentSerializer
+
+
+class MedicinesList(generics.ListCreateAPIView):
+    queryset = Medicine.objects.all()
+    serializer_class = MedicineSerializer
+
+
+class MedicineDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Medicine.objects.all()
+    serializer_class = MedicineSerializer
+
+
+class RoomsList(generics.ListCreateAPIView):
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
+
+
+class RoomDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
