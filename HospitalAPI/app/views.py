@@ -1,14 +1,19 @@
-# from xml.etree.ElementInclude import include
+from app.models import Doctor, Patient, Department, Medicine, Room
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
-# # django views imports
-# from django.shortcuts import render
-# from django.http import HttpResponse, JsonResponse
-# from django.views.decorators.csrf import csrf_exempt
-# from django.views.decorators.http import require_http_methods
-# from django.core.exceptions import ObjectDoesNotExist
+# django views imports
+from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
+from django.core.exceptions import ObjectDoesNotExist
 
-# # hospital api that has a doctor and patient model
-# from HospitalAPI.models import Doctor, Patient
+
+@api_view(['GET'])
+def getData(request):
+    return Response({'message': 'Hello, World!'})
+
 
 # # Create your views here.
 # @csrf_exempt
