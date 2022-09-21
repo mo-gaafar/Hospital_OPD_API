@@ -8,8 +8,14 @@ from .serializers import DoctorSerializer, PatientSerializer, DepartmentSerializ
 
 
 class DoctorsList(generics.ListCreateAPIView):
-    queryset = Doctor.objects.all()
     serializer_class = DoctorSerializer
+
+    def get_queryset(self):
+        queryset = Doctor.objects.all()
+        department = self.request.query_params.get('department')
+        if department is not None:
+            queryset = queryset.filter(department=department)
+        return queryset
 
 
 class DoctorDetail(generics.RetrieveUpdateDestroyAPIView):

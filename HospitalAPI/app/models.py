@@ -1,6 +1,9 @@
 # django models imports
 from django.db import models
 
+from dateutil.relativedelta import relativedelta
+from datetime import datetime
+
 # Create your models here.
 
 
@@ -12,7 +15,7 @@ class Department(models.Model):
 
 
 class Room(models.Model):
-    number = models.IntegerField()
+    number = models.IntegerField(unique=True, primary_key=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -27,6 +30,7 @@ class Doctor(models.Model):
         choices=[('M', 'Male'), ('F', 'Female')]
     )
     birthdate = models.DateField()
+    # age = models.IntegerField()
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -53,6 +57,17 @@ class Patient(models.Model):
     medicines = models.ManyToManyField(Medicine)
     seeing_doctors = models.ManyToManyField(Doctor)
     room = models.OneToOneField(Room, null=True, on_delete=models.SET_NULL)
+
+    # # convert from birthdate to age
+    # age = models.IntegerField()
+
+    # def get_age(self):
+    #     return relativedelta(self.birth_date.days, datetime.date.now()).years
+
+    # # overriding save method to update the age field
+    # def save(self, **kwargs):
+    #     self.age = self.get_age()
+    #     return super(Patient, self).save(**kwargs)
 
     def __str__(self):
         return self.name
