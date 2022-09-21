@@ -27,7 +27,7 @@ class Doctor(models.Model):
         choices=[('M', 'Male'), ('F', 'Female')]
     )
     birthdate = models.DateField()
-    department = models.ForeignKey(Department, on_delete = models.CASCADE)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -35,10 +35,11 @@ class Doctor(models.Model):
 
 class Medicine(models.Model):
     name = models.CharField(max_length=100)
-    prescriber = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    dose = models.CharField(max_length=100, null=True)
+    # prescriber = models.ForeignKey(Doctor, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return f"{self.name} {self.dose}"
 
 
 class Patient(models.Model):
