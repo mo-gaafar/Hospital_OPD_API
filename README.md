@@ -12,7 +12,11 @@ This web api is built using django using sqlite database.
 
 ## Postman Preview Video
 
-[Postman Preview Video](./PostmanPreview.mp4)
+
+
+https://user-images.githubusercontent.com/46086535/191558402-0935769d-b006-4b08-93bb-e5f9dbb96b02.mp4
+
+
 
 ## API Endpoints
 
